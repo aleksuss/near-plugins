@@ -25,7 +25,7 @@ jobs:
           override: true
           target: wasm32-unknown-unknown
 
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
         with:
           key: rust-version-${{ env.MSRV }}-msrv-2
 
@@ -33,7 +33,7 @@ jobs:
         run: rustup target add wasm32-unknown-unknown
 
       - name: cargo test
-        run: cargo test --all --all-features
+        run: cargo test --workspace --all-features
 
   lint:
     name: Format
@@ -49,7 +49,7 @@ jobs:
           override: true
           components: rustfmt, clippy
 
-      - uses: Swatinem/rust-cache@v1
+      - uses: Swatinem/rust-cache@v2
         with:
           key: rust-version-${{ env.MSRV }}-msrv-2
 
@@ -57,4 +57,4 @@ jobs:
         run: cargo fmt --all -- --check
 
       - name: cargo clippy
-        run: cargo clippy --all --all-features --all-targets -- -D warnings
+        run: cargo clippy --workspace --all-features --all-targets -- -D warnings
